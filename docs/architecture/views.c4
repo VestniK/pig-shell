@@ -10,4 +10,16 @@ views {
 
     autoLayout LeftRight
   }
+
+  view containers of pig-console-shell {
+    title "Containers — Pig Console Shell"
+    description """
+      Слой Container (C4, уровень 2): внутренняя структура системы
+      **Pig Console Shell** и её взаимодействие с внешними системами.
+    """
+
+    include *
+
+    autoLayout TopBottom
+  }
 }

@@ -69,14 +69,14 @@ model {
     technology "Wayland-клиент"
   }
 
-  compositor-core = external-system "Compositor Core Library" {
-    summary "Внешняя библиотека, реализующая основы Wayland-композитора"
+  packagekit = external-system "PackageKit" {
+    summary "Системный менеджер пакетов дистрибутива Linux"
     description """
-      Сторонняя библиотека (например, smithay), реализующая практически все
-      аспекты Wayland-композитора. Код проекта сосредоточен на логике
-      UI-оболочки поверх неё. Детализация ожидается на слое Container.
+      Системный сервис управления пакетами ОС, поверх которой работает
+      консоль. Используется оболочкой для проверки наличия и запуска
+      системных обновлений.
     """
-    technology "Rust crate"
+    technology "D-Bus API"
   }
 
   player -> pig-console-shell "управляет" {
@@ -91,28 +91,5 @@ model {
   administrator -> pig-console-shell "вводит команды" {
     technology "Клавиатура"
     description "Клавиатурный ввод, направляемый в терминал."
-  }
-
-  pig-console-shell <-> games "управляет сеансом окна" {
-    technology "Wayland IVI-shell"
-    description "Оболочка запускает приложение и управляет его раскладкой; приложение создаёт ivi-поверхность."
-  }
-
-  pig-console-shell <-> browser "управляет сеансом окна" {
-    technology "Wayland IVI-shell"
-  }
-
-  pig-console-shell <-> terminal "управляет сеансом окна" {
-    technology "Wayland IVI-shell"
-  }
-
-  pig-console-shell -> compositor-core "использует" {
-    technology "Rust crate"
-    description "Композиторная часть оболочки строится поверх внешней библиотеки."
-  }
-
-  pig-console-shell -> game-repository "ищет и загружает игры" {
-    technology "HTTP API"
-    description "Менеджер игровых пакетов оболочки запрашивает каталог, метаданные и пакеты игр."
   }
 }
