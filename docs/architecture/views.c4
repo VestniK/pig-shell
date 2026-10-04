@@ -1,0 +1,13 @@
+views {
+  view context {
+    title "Context — Pig Console Shell"
+    description """
+      Слой Context (C4, уровень 1): система **Pig Console Shell**,
+      её пользователи и внешние зависимости.
+    """
+
+    include *
+
+    autoLayout LeftRight
+  }
+}

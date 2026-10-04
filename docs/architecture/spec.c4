@@ -1,0 +1,19 @@
+specification {
+  element person {
+    title "Person"
+    notation "Person"
+    style { shape person; color green }
+  }
+
+  element system {
+    title "System"
+    notation "Software System"
+    style { color primary }
+  }
+
+  element external-system {
+    title "External System"
+    notation "External System"
+    style { color muted }
+  }
+}
