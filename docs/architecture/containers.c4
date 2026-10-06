@@ -19,11 +19,15 @@ model {
     -> game-library "читает список игр и настройки" { technology "IPC" }
     -> browser "запускает и управляет окном" { technology "Wayland IVI-shell" }
     -> terminal "запускает и управляет окном" { technology "Wayland IVI-shell" }
-    -> package-manager "запускает обновления" {
+    -> package-manager "запускает обновления (игр и системы)" {
       technology "IPC"
-      description "Установка обновлений игр и системы целиком управляется пользователем и инициируется из UI Shell."
+      description """
+        Единая точка инициации: пользователь через UI Shell запускает
+        как обновления игр, так и системные обновления.
+        Package/Update Manager выполняет их и уведомляет UI Shell о доступности.
+      """
     }
-    package-manager -> it "уведомляет об обновлениях" {
+    package-manager -> it "уведомляет о доступных обновлениях (игр и системы)" {
       technology "IPC"
       description "Package/Update Manager оповещает UI Shell о наличии обновлений игр и нижележащей системы."
     }
@@ -62,7 +66,10 @@ model {
     technology "Rust / HTTP / PackageKit"
 
     -> game-repository "ищет и скачивает игры" { technology "HTTP API" }
-    <-> game-library "устанавливает, обновляет, удаляет игры" { technology "IPC" }
+    <-> game-library "выполняет установку/обновление/удаление игр; читает версии" {
+      technology "IPC"
+      description "Game Library — пассивное хранилище: менеджер изменяет его содержимое и читает версии для детектирования обновлений."
+    }
     -> packagekit "проверяет и запускает системные обновления" { technology "D-Bus" }
   }
 
