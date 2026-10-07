@@ -102,4 +102,26 @@ model {
     technology "Клавиатура"
     description "Клавиатурный ввод, направляемый в терминал."
   }
+
+  pig-console-shell <-> games "запускает и управляет окнами" {
+    technology "Wayland IVI-shell"
+    description "Оболочка запускает игры и управляет их раскладкой; игры создают ivi-поверхности."
+  }
+
+  pig-console-shell -> game-repository "ищет и получает игровые пакеты" {
+    technology "HTTP API"
+    description "Поиск, получение метаданных, скачивание, обновление и удаление игр."
+  }
+
+  pig-console-shell -> browser "запускает и управляет окном" {
+    technology "Wayland IVI-shell"
+  }
+
+  pig-console-shell -> terminal "запускает и управляет окном" {
+    technology "Wayland IVI-shell"
+  }
+
+  pig-console-shell -> packagekit "проверяет и запускает системные обновления" {
+    technology "D-Bus"
+  }
 }
