@@ -1,12 +1,17 @@
 views {
+  // Элементы и связи с тегом #deferred сознательно отложены
+  // на последующие итерации разработки и визуально приглушаются.
   view context {
     title "Context — Pig Console Shell"
     description """
       Слой Context (C4, уровень 1): система **Pig Console Shell**,
       её пользователи и внешние зависимости.
+      Связи с тегом #deferred отложены на последующие итерации.
     """
 
     include *
+
+    style element.tag = #deferred { color muted; opacity 40%; border dashed }
 
     autoLayout LeftRight
   }
@@ -16,9 +21,12 @@ views {
     description """
       Слой Container (C4, уровень 2): внутренняя структура системы
       **Pig Console Shell** и её взаимодействие с внешними системами.
+      Связи с тегом #deferred отложены на последующие итерации.
     """
 
     include *
+
+    style element.tag = #deferred { color muted; opacity 40%; border dashed }
 
     autoLayout TopBottom
   }

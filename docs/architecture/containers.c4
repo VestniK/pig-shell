@@ -31,6 +31,25 @@ model {
           pig-library — провайдер данных и исполнитель действий для pig-shell.
         """
       }
+
+      -> systemd-logind "выключает и перезагружает устройство" {
+        technology "D-Bus"
+        description "Управление питанием требуется с самого старта: выключение и перезагрузка устройства из UI оболочки."
+      }
+
+      -[deferred]-> pipewire "выводит звук интерфейса" {
+        technology "PipeWire API"
+        description "Звуковые эффекты UI оболочки — задача последующих итераций."
+      }
+
+      -[deferred]-> network-manager "предоставляет UI настройки сети" {
+        technology "D-Bus"
+        description """
+          UI-фронтенд к NetworkManager — задача последующих итераций.
+          В первой итерации сеть настраивается администратором
+          через терминал (nmcli/nmtui).
+        """
+      }
     }
 
     pig-library = container "Pig Library" {
